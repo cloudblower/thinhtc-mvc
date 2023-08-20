@@ -1,4 +1,5 @@
 const sequelize = require("./utils/database");
+const { errorHandler } = require("./middlewares/errorHandler");
 
 const express = require("express");
 const dotenv = require("dotenv");
@@ -12,22 +13,31 @@ const Order = require("./models/Order");
 const OrderItem = require("./models/OrderItem");
 const Category = require("./models/Category");
 
-dotenv.config({ path: "config.env" });
+// Import .env file
+dotenv.config({ path: ".env" });
 
+// Initialize Express
 const app = express();
 
 // Body parser
 app.use(express.json());
 
-app.use(morgan("dev"));
+// Log HTTP Requests in dev mode
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
 
 // Route files
 const users = require("./routes/users");
 const orders = require("./routes/orders");
 
 // Mount routers
-app.use(users);
-app.use(orders);
+app.use("/api/v1", users);
+app.use("/api/v1", orders);
+
+// Error-handler middleware
+app.use(errorHandler);
+
 // Relations
 User.hasMany(Order, {
   foreignKey: "UserID",
@@ -41,6 +51,7 @@ Order.hasMany(OrderItem, {
 });
 OrderItem.belongsTo(User, { as: "orderitem", foreignKey: "OrderID" });
 
+// Launch Express Server
 const PORT = process.env.PORT || 8080;
 
 const server = app.listen(
