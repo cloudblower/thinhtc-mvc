@@ -7,7 +7,7 @@ const {
   paymentOrder,
 } = require("../controllers/orders");
 
-router.get("/orders", getOrdersByUserID);
+router.get("/orders/:id", getOrdersByUserID);
 router.post("/orders", createNewOrder);
 router.delete("/orders", deleteOrder);
 router.patch("/orders", paymentOrder);
