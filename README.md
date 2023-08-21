@@ -6,7 +6,8 @@
 
     Em sử dụng Database được cấp ở bài SQL trước đó để tiết kiệm thời gian.
 
-    Vì RESTful API là Stateless không lữu dữ liệu ở local như console.log và GUI nên em xin phép được tạo thêm 1 bảng CartItems để chữa dữ liệu giỏ hàng của người dùng
+    Vì RESTful API là Stateless không lữu dữ liệu ở local như console.log
+    và GUI nên em xin phép được tạo thêm 1 bảng CartItems để chữa dữ liệu giỏ hàng của người dùng
 
     Dữ liệu nằm ở trong file "Database.sql"
 
