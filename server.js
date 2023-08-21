@@ -12,6 +12,7 @@ const Product = require("./models/Product");
 const Order = require("./models/Order");
 const OrderItem = require("./models/OrderItem");
 const Category = require("./models/Category");
+const CartItem = require("./models/CartItem");
 
 // Import .env file
 dotenv.config({ path: ".env" });
@@ -30,10 +31,11 @@ if (process.env.NODE_ENV === "development") {
 // Route files
 const users = require("./routes/users");
 const orders = require("./routes/orders");
-
+const cartitems = require("./routes/cartitems");
 // Mount routers
 app.use("/api/v1", users);
 app.use("/api/v1", orders);
+app.use("/api/v1", cartitems);
 
 // Error-handler middleware
 app.use(errorHandler);
