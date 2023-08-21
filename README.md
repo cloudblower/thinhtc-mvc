@@ -1,15 +1,51 @@
-## Danh Sách Method API
+# BÀI TẬP CHO MVC API BẰNG NODEJS
 
-1. HIỂN THỊ TẤT CẢ DANH SÁCH USER CÓ TRONG HỆ THỐNG  
-   GET - http://localhost:8080/users
-2. DANH SÁCH ORDER THEO USER ID  
-   GET - http://localhost:8080/orders?UserID=[UserID]
-3. THÊM XOÁ GIỎ HÀNG  
-   POST - http://localhost:8080/orders # Dùng JSON  
-   DELETE - http://localhost:8080/orders?OrderID=[OrderID]
-4. THANH TOÁN ĐƠN HÀNG
-   PATCH - http://localhost:8080/orders?OrderID=[OrderID]
+## NOTE:
 
-## Note:
+    Công nghệ/Thư viện được sử dụng: NodeJS/Express/Sequelize/Mysql
 
-Vì Restful API là stateless không lưu dữ liệu ở local được như console.log và GUI nên em xin phép được dùng bảng orders để thay thế carts làm nơi lưu trữ giỏ hàng. Ban đầu record được lưu vào orders với trường OrderDate bị bỏ trống sẽ được tính như chưa được thanh toán. Cho OrderDate được cập nhật thì order mới chính thức được ghi nhận.
+    Em sử dụng Database được cấp ở bài SQL trước đó để tiết kiệm thời gian.
+
+    Vì RESTful API là Stateless không lữu dữ liệu ở local như console.log và GUI nên em xin phép được tạo thêm 1 bảng CartItems để chữa dữ liệu giỏ hàng của người dùng
+
+    Dữ liệu nằm ở trong file "Database.sql"
+
+## CÁC PHƯƠNG THỨC API:
+
+    *HIỂN THỊ DANH SÁCH TẤT CẢ USER TRONG HỆ THỐNG:
+
+        URL: GET http://localhost:8080/api/v1/users
+
+    *DANH SÁCH ORDERS (BAO GỒM ODER DETAIL) THEO USER:
+
+        URL: GET http://localhost:8080/api/v1/orders/[id]
+
+        Tham số:
+        [id]: UserID
+
+    *CHỨC NĂNG GIỎ HÀNG (THÊM) SẢN PHẨM:
+
+        URL: POST http://localhost:8080/api/v1/cartitems
+
+        Tham số:
+        File Json chứa sản phẩm cần thêm:
+         VD: {
+               "ProductName": "Iphone X",
+               "Price": 1000,
+               "CategoryID": 1
+            }
+
+    *CHỨC NĂNG GIỎ HÀNG (XOÁ) SẢN PHẨM:
+
+        URL: DELETE http://localhost:8080/api/v1/cartitems/[id]
+
+        Tham số:
+        [id]: UserID
+
+
+    *THANH TOÁN (GHI NHẬN ĐƠN VÀO DATABASE)
+
+        URL: POST http://localhost:8080/api/v1/cart/[userId]/checkout
+
+        Tham số:
+        [id]: UserID
