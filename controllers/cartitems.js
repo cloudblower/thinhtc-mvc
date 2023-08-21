@@ -1,4 +1,6 @@
 const asyncHandler = require("../middlewares/asyncHandler");
+const User = require("../models/User");
+const Product = require("../models/Product");
 const CartItem = require("../models/CartItem");
 const ErrorResponse = require("../utils/errorResponse");
 
@@ -9,12 +11,12 @@ module.exports.addCartItem = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`User not found`, 404));
   }
 
-  const product = await User.findByPk(ProductID);
+  const product = await Product.findByPk(ProductID);
   if (!product) {
     return next(new ErrorResponse(`Product not found`, 404));
   }
 
-  const cartitem = await Order.create({
+  const cartitem = await CartItem.create({
     UserID,
     ProductID,
     Quantity,
