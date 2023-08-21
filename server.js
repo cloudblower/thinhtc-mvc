@@ -32,27 +32,17 @@ if (process.env.NODE_ENV === "development") {
 const users = require("./routes/users");
 const orders = require("./routes/orders");
 const cartitems = require("./routes/cartitems");
+const cart = require("./routes/cart");
 // Mount routers
 app.use("/api/v1", users);
 app.use("/api/v1", orders);
 app.use("/api/v1", cartitems);
+app.use("/api/v1", cart);
 
 // Error-handler middleware
 app.use(errorHandler);
 
 // Relations
-// User.hasMany(Order, {
-//   foreignKey: "UserID",
-//   onDelete: "CASCADE",
-// });
-// Order.belongsTo(User, { as: "order", foreignKey: "UserID" });
-
-// Order.hasMany(OrderItem, {
-//   foreignKey: "OrderID",
-//   onDelete: "CASCADE",
-// });
-// OrderItem.belongsTo(User, { as: "orderitem", foreignKey: "OrderID" });
-
 Order.hasMany(OrderItem, { foreignKey: "OrderID" });
 OrderItem.belongsTo(Order, { foreignKey: "OrderID" });
 
